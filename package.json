@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm --env-file=./config/.env server.js",
-    "dev": "npm --env-file=./config/.env --watch server.js",
+    "start": "node --env-file=./config/.env server.js",
+    "dev": "node --env-file=./config/.env --watch --trace-deprecation server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

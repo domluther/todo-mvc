@@ -21,7 +21,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// What routes are there?
+// Base routes for the app
 app.use('/', homeRoutes);
 app.use('/todos', todoRoutes);
 
