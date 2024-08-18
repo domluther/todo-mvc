@@ -1,21 +1,31 @@
-const express = require('express')
-const app = express()
-const connectDB = require('./config/database')
-const homeRoutes = require('./routes/home')
-const todoRoutes = require('./routes/todos')
+// Libraries
+const express = require('express');
+const morgan = require('morgan');
 
-require('dotenv').config({path: './config/.env'})
+// My own code
+const connectDB = require('./config/database');
+const homeRoutes = require('./routes/home');
+const todoRoutes = require('./routes/todos');
 
-connectDB()
+// Consts
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.set('view engine', 'ejs')
-app.use(express.static('public'))
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
+// Connect to the DB
+connectDB();
 
-app.use('/', homeRoutes)
-app.use('/todos', todoRoutes)
- 
-app.listen(process.env.PORT, ()=>{
-    console.log('Server is running, you better catch it!')
-})    
+// Set up middleware - view engine, logging, static folder, dealing with data
+app.set('view engine', 'ejs');
+app.use(morgan('tiny'));
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// What routes are there?
+app.use('/', homeRoutes);
+app.use('/todos', todoRoutes);
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server started at http://localhost:${PORT}`);
+});
